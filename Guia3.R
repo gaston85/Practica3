@@ -58,3 +58,16 @@ if(col_a!=fila_b){
   }
 }
 
+#Ejercicio 4----
+rm(list = ls())
+datos<-c(3,31,7,1)
+datos_b<-c(2,9)
+a<-matrix(datos,2,2)
+b<-matrix(datos_b)
+
+#Generar la determinante
+det_a<-a[1,1]*a[2,2]-a[1,2]*a[2,1]
+
+adj_a<-matrix(c(a[2,2],-a[2,1],-a[1,2],a[1,1]),2,2)
+adj_a
+
