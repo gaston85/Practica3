@@ -1,3 +1,46 @@
+#Ejercicio 1----
+rm(list = ls())
+#a
+x<-c()
+for (i in 1:1000) {
+  x[i]<-i
+}
+x<-seq(1,1000,1)
+
+#b
+a<-array(1:600,dim = c(30,20))
+for (x in 1:30) {
+  for (y in 1:20) {
+    a[x,y]<-x*y
+  }
+}
+
+#c
+rm(list = ls())
+a<-matrix(1:30,30,1)
+b<-matrix(1:20,1,20)
+c<-matrix(,30,20)
+for (x in a) {
+  for (y in b) {
+    c[x,y]<-x*y
+  }
+}
+
+#d
+B<-c[,5]
+
+#e
+rm(list = ls())
+c<-array(,dim = c(30,20,10))
+for (x in 1:nrow(c)) {
+  for (y in 1:ncol(c)) {
+    for (z in 1:10) {
+      c[x,y,z]<-x*y*z
+    }
+  }
+}
+
+D<-c[,,4]
 #Ejercicio 2----
 #a
 a<-c(4, -10, 7, -2, 8, -6, 1, -15, 3, -9) 
@@ -5,7 +48,6 @@ i <- 3
 j <- 5
 b <- c ( 1 , 5 , 7 )
 c <- c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE)
-
 
 #i) 
 a[] #Devuelve todos los valores de a
@@ -58,6 +100,19 @@ if(col_a!=fila_b){
   }
 }
 
+#b
+if(col_a!=fila_b){
+  print("No se puede realizar el producto matricial")
+}else{
+  a<-matrix(datos_a,fila_a,col_a)
+  b<-matrix(datos_b,fila_b,col_b)
+  c<-matrix(,fila_a,col_b)
+  for (x in 1:fila_a) {
+    for (y in 1:col_b) {
+      c[x,y]<-(a[x,y]*b[x,y])
+    }
+  }
+}
 #Ejercicio 4----
 rm(list = ls())
 datos<-c(3,31,7,1)
@@ -69,5 +124,24 @@ b<-matrix(datos_b)
 det_a<-a[1,1]*a[2,2]-a[1,2]*a[2,1]
 
 adj_a<-matrix(c(a[2,2],-a[2,1],-a[1,2],a[1,1]),2,2)
-adj_a
 
+inv_a<-adj_a/det_a
+if(ncol(a)!=nrow(b)){
+  print("Las dimensiones no coinciden")
+}else{
+  x<-inv_a%*%b 
+}
+x
+solve(a,b)
+#Ejercicio 5----
+rm(list = ls())
+serie<-c()
+horario<-0
+for (i in 1:8) {
+  serie[i]<-as.numeric(readline(paste("Ingrese el valor de temperatura de la hora",horario,": ")))
+  horario<-horario + 3
+}
+cat("El maximo de la serie es de",max(serie),"grados en la hora",which(serie[]==max(serie))*3-3)
+
+#d
+sum(serie[serie[]>20])
