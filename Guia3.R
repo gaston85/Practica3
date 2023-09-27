@@ -152,9 +152,19 @@ load("temp_bsas.RData")
 
 variable2<-array(variable,dim = c(8,14,4,12,5))
 media_mens<-apply(variable2, c(1,2,3,5),mean)
+
+#b##
 media_anual<-apply(variable2,c(1,2,3,4),mean)
+
+#c##
 media_mens[,,3,]
 
+#d##
 #Olavarria -36.89,-60,32
-
+lat_Ola<- -36.89
+long_Ola<- -60.32
 media_mens[7,6,1,] #Como lo generalizo????
+
+media_mens[which.min(abs(datos_dimensiones$latitude-lat_Ola)),
+           which.min(abs(datos_dimensiones$longitude-360-long_Ola)),1,]
+#Ejercicio 7----
