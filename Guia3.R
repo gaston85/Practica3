@@ -157,4 +157,4 @@ media_mens[,,3,]
 
 #Olavarria -36.89,-60,32
 
-media_mens[7,6,1,]
+media_mens[7,6,1,] #Como lo generalizo????
