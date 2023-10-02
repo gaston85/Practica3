@@ -196,3 +196,11 @@ for (i in seq(1,358,by=7)) {
 }
 
 #### e ###
+intervalos<-round(5*log10(max(TEMP,na.rm = T)-min(TEMP,na.rm = T)))
+
+anchos<-seq(min(TEMP,na.rm = T),max(TEMP,na.rm = T),by=(max(TEMP,na.rm = T)-min(TEMP,na.rm = T))/7)
+datosTEMP_ordenados
+for (i in 1:7){
+  cat("Dentro del intervalo",i,"hay",length(datosTEMP_ordenados[datosTEMP_ordenados>anchos[i] & datosTEMP_ordenados<anchos[i+1]]),"valores \n")
+}
+
