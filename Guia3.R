@@ -168,3 +168,31 @@ media_mens[7,6,1,] #Como lo generalizo????
 media_mens[which.min(abs(datos_dimensiones$latitude-lat_Ola)),
            which.min(abs(datos_dimensiones$longitude-360-long_Ola)),1,]
 #Ejercicio 7----
+
+TEMP<-scan("datos_tmedia_SABE_2010.txt")
+
+dias_sup_40<-which(TEMP>40)
+valores_dia_despues<-TEMP[which(TEMP>40)+1]
+valores_dia_anterior<-TEMP[which(TEMP>40)-1]
+dias_erroneos<-sum(TEMP>40)
+
+######### b # # #
+
+max(TEMP);min(TEMP)
+
+TEMP[TEMP==-999 |TEMP>40]<-NA
+max(TEMP,na.rm = T);min(TEMP,na.rm = T)
+
+#### c ###
+datosTEMP_ordenados<-sort(TEMP)
+median(datosTEMP_ordenados)
+
+#### d ###
+TEMP_semanal<-c()
+j<-1
+for (i in seq(1,358,by=7)) {
+  TEMP_semanal[j]<-mean(TEMP[i:(i+7)],na.rm = T)
+  j<-j+1
+}
+
+#### e ###
