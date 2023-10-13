@@ -204,3 +204,39 @@ for (i in 1:7){
   cat("Dentro del intervalo",i,"hay",length(datosTEMP_ordenados[datosTEMP_ordenados>anchos[i] & datosTEMP_ordenados<anchos[i+1]]),"valores \n")
 }
 
+
+#Ejercicio 8----
+
+rm(list = ls())
+
+info<-function(serie){
+  serie<-scan(serie)
+  serie[serie==-999 |serie >40]<-NA
+  media<-mean(serie, na.rm = T)
+  maximo<-max(serie,na.rm = T)
+  minimo<-min(serie,na.rm = T)
+  desvio<-sd(serie,na.rm = T)
+  
+  return(data.frame("Media"=media,"Maximo"=maximo,"Minimo"=minimo,"Desvio"=desvio))
+}
+info("datos_tmedia_SABE_2010.txt")
+
+###b
+histograma<-function(serie,intervalo){
+  serie<-scan(serie)
+  serie[serie==-999 |serie >40]<-NA
+  ancho<-seq(min(serie,na.rm = T),max(serie,na.rm = T),by=(max(serie,na.rm = T)-min(serie,na.rm = T))/intervalo)
+  serie_ordenada<-sort(serie)
+  info<-c()
+  for (i in 1:intervalo) {
+    info[i]<-serie_ordenada[serie_ordenada>ancho[i] & serie_ordenada<ancho[i+1]]   
+  }
+  histo<-matrix(info,ncol = intervalo)
+  return(plot(histo))
+}
+
+histograma("datos_tmedia_SABE_2010.txt",2)
+
+
+#Ejercicio 9----
+rm(list = ls())
