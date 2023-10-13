@@ -240,3 +240,98 @@ histograma("datos_tmedia_SABE_2010.txt",2)
 
 #Ejercicio 9----
 rm(list = ls())
+
+load("t_media_EF.RData")
+nombres<-c()
+maximo<-c()
+anio<-c()
+for (i in 1:5) {
+  nombres[i]<-estaciones[i,1]$aux
+  anomalia<-max(estaciones[i,2]$aux)
+  maximo[i]<-round(max(estaciones[i,2]$aux),digits = 2)
+  anio[i]<-1980+which(estaciones[i,2]$aux==anomalia)
+}
+anomalia_T<-data.frame("Estacion"=nombres,"Anio"=anio,"Temperatura"=maximo)
+
+####b
+
+media<-c()
+desvio<-c()
+for (i in 1:5) {
+  media[i]<-mean(estaciones[i,3]$aux,na.rm = T)
+  desvio[i]<-sd(estaciones[i,3]$aux,na.rm = T)
+  for (j in estaciones[i,3]$aux) {
+    if(j>(media[i]+desvio[i])){
+      print(paste("La estacion",estaciones[i,1],
+                  "estuvo por encima de la media en el año",
+                  1980 + which(estaciones[i,3]$aux==j)),quote = F)
+    } 
+  }
+}
+
+
+####c
+
+rango_mediana<-function(serie){
+  rango<-max(serie,na.rm = T)-min(serie,na.rm = T)
+  mediana<-median(serie,na.rm = T)
+  rango_y_median<-c(rango,mediana)
+  return(rango_y_median)
+}
+
+
+nombres<-c()
+rango<-c()
+mediana<-c()
+for (i in 1:5) {
+  nombres[i]<-estaciones[i,1]$aux
+  rango[i]<-rango_mediana(estaciones[i,2]$aux)[1]
+  mediana[i]<-rango_mediana(estaciones[i,2]$aux)[2]
+}
+
+rango_median_enero<-matrix(c(rango,mediana),nrow = 2,byrow = T,
+                           dimnames = list(c("Rango","Mediana"),nombres))
+#Ejercicio 10----
+rm(list = ls())
+
+nombres<-c("Gaston","Rocio","Caterina","Felipe","Evelyn","Romina",
+           "Camila","Candelaria","Emanuel","Ezequiel")
+
+lista_nombres<-function(letra){
+  nombres<-c("Gaston","Rocio","Caterina","Felipe","Evelyn","Romina",
+             "Camila","Candelaria","Emanuel","Ezequiel")
+  nombres[toupper(substr(nombres,1,1))==toupper("letra")]
+}
+
+nombres2<-list("Gaston","Rocio","Caterina","Felipe","Evelyn","Romina",
+               "Camila","Candelaria","Emanuel","Ezequiel")
+lista_nombres2<-function(lista,letra){
+  nombres_con_letra<-c() 
+  for (i in 1:length(lista)) {
+    if(toupper(substr(lista[[i]][1],1,1))==toupper(letra)){
+      nombres_con_letra[[j]]<-lista[[i]][1] 
+      #Al usar doble corchete en un vector vacio, se genera una lista. GOD,no??
+      j<-j+1
+    }
+  }
+  if(length(nombres_con_letra)==0){
+    nombres_con_letra<-paste("No hay nombres que comiencen con la letra",letra)
+  }
+  return(nombres_con_letra)
+}
+
+lista_nombres2(nombres2,"c")
+#Ejercicio 11 es el ejercicio a entregar. (Paja)
+#Ejercicio 12----
+rm(list = ls())
+
+datos<-read.table("presiondesaturacion.txt",col.names = c("Temperatura","Presion_Saturacion"))
+
+presion_sat<-function(archivo,temperatura){
+  if(temperatura<min(archivo[[1]]) |temperatura>max(archivo[[1]])) stop("La temperatura ingreasada no esta dentro del rango del archivo")
+  if(sum(datos[[1]]==temperatura)==0) warning("La temperatura ingresada no esta dentro del archivo, se usara el mas cercano")
+  P_sat<-archivo[[2]][which.min(abs(temperatura-archivo[[1]]))] 
+  return(paste(P_sat,"hPa"))
+}
+
+presion_sat()
